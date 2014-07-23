@@ -4,4 +4,7 @@ from django.contrib import admin
 
 from .models import Ride
 
-admin.site.register(Ride)
+class RideAdmin(admin.ModelAdmin):
+    list_display = ('start_time', 'end_time', 'distance')
+
+admin.site.register(Ride, RideAdmin)
