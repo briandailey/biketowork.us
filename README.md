@@ -140,6 +140,28 @@ admin.site.register(Ride, RideAdmin)
     - you can also drop into raw SQL, or grab child and parent objects.
     - you can limit the results (with a SQL ```LIMIT```) by using python list syntax: ```Ride.objects.all()[:5])```
 
+#### Rough draft area...
+
+- show most recent five in templates, show how to render a template with variables
+    - start with just render httpresponse
+    - then actually populate variables in template, use render_to_response shortcut
+    - show how to include logic, variables, and what filters are.
+    - briefly talk about class-based views
+
+- set up urls.py to show this new page at the root
+    - it's just regex!
+- ok, let's add a user account and authentication (how easy was that?)
+    - maybe use an add-in for social account login?
+    - demonstrate how you don't always need to recreate the wheel
+    - add add-in to requirements.txt (what is requirements.txt?)
+- create a base template that others extend
+- demonstrate how to set up a relationship between objects
+- now let's say we want to show per user, and change it
+- demonstrate how we put variables in a url pattern (to change user)
+- forms so non-admin can create a ride
+- create a test
+
+
 
 Resources:
 http://www.slideshare.net/mpirnat/web-development-with-python-and-django
