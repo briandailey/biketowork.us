@@ -5,9 +5,13 @@ class Ride(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
 
+    @property
+    def minutes(self):
+        return round((self.start_time - self.end_time).seconds/60)
+
     def __str__(self):
         return "{minutes}m, {distance} miles".format(
-                minutes=round((self.start_time - self.end_time).seconds/60, 2),
+                minutes=self.minutes,
                 distance=self.distance)
 
 
