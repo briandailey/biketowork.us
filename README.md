@@ -127,8 +127,18 @@ admin.site.register(Ride, RideAdmin)
 - The admin is extensible, theme-able, and easy to set up. However, you don't really want to use it for your entire site.
 - What if we wanted the landing page to show us the five most recent rides?
     - To the view layer!
-
-
+- views are the glue between the models and the templates
+- pull from the DB, show it on the page.
+- let's talk about querysets.
+    - we said we wanted the five most recent rides. we have a ride object, how do we get many objects and iterate over them?
+    - a model is a representation of an object
+    - but the model manager is accessed via Model.objects, which allows us to talk to the DB.
+    - For example, ```ride = Ride.objects.get(pk=1)``` would get the Ride object with a primary key of 1 and store it in the variable ```ride```
+    - You can also grab multiple objects: ```rides = Ride.objects.filter(distance=1)```
+    - filter is pretty powerful, and allows you to also do things like ```ride = Ride.objects.filter(distance__gte=4)```
+    - you can sort the objects you search for: ```Ride.objects.order_by('start_time')```
+    - you can also drop into raw SQL, or grab child and parent objects.
+    - you can limit the results (with a SQL ```LIMIT```) by using python list syntax: ```Ride.objects.all()[:5])```
 
 
 Resources:
