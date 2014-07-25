@@ -37,7 +37,7 @@ cd biketowork
 ./manage.py runserver
 ```
 
-- oh look, a webserver that [already works](c5da0290dcf2d2e3e7eb884e9c68a6e1989973ac)!
+- oh look, a webserver that already works!
 - ok, time to create ourselves a "ride". where's our models file?
 - models belong to apps. we have a project, but no apps yet.
 
