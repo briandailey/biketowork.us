@@ -128,6 +128,43 @@ admin.site.register(Ride, RideAdmin)
 - What if we wanted the landing page to show us the five most recent rides?
     - To the view layer!
 - views are the glue between the models and the templates
+    - simply put, a view accepts a request and returns a response.
+    - you can use a template to make things easier for you
+        - think of a template as a static page with dynamic variables
+    - but you don't have to use a template. you just have to return some kind of response.
+- let's go ahead and create a really simple view
+
+```
+from django.shortcuts import HttpResponse
+
+def recent(request):
+    return HttpResponse('leeeroy jenkins!')
+```
+
+- first, we need to tell django that the root url will point to a view method
+    - urls are mapped in urls.py
+    - there's a project urls.py, and an app urls.py
+        - a common pattern is to set up most urls in the app and include them in the project
+    - let's edit the project urls.py file for now
+
+```
+from django.conf.urls import patterns, include, url
+
+from django.contrib import admin
+admin.autodiscover()
+
+from rides.views import recent
+
+urlpatterns = patterns('',
+    # Examples:
+    # url(r'^$', 'biketowork.views.home', name='home'),
+    # url(r'^blog/', include('blog.urls')),
+
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', recent),
+)
+```
+
 - pull from the DB, show it on the page.
 - let's talk about querysets.
     - we said we wanted the five most recent rides. we have a ride object, how do we get many objects and iterate over them?
