@@ -205,6 +205,26 @@ def recent(request):
     })
 ```
 
+- Alright! Now how do we show that variable inside the template?
+    - what you need to know about templates...
+    - variables are printed out with ```{{ variable }}```
+    - some control logic (but no much) can be wrapped in ```{% if this %} {% endif %}```
+    - if you came from PHP or Ruby, be aware that templates are weak for building business logic for a reason.
+        - From the Django overlords: "_the template system is meant to express presentation, not program logic._."
+        - the template language does not mix Python with HTML.
+    - filters allow you to modify how variables are displayed, but they can also be abused to create your own filters that handle business logic
+        - using filters to perform business logic is generally a bad idea; keep that in your views.
+    - an example of a filter would be ```{{ variable|default:"nothing here" }}```
+        - the default filter takes a None value and replaces it with the "nothing here" string.
+- let's go ahead and use a for loop to iterate over each of our rides and display them.
+
+```
+  {% for ride in rides %}
+    {{ ride }}
+    <br/>
+  {% endfor %}
+```
+
 
 #### Rough draft area...
 
