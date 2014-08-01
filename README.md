@@ -78,7 +78,7 @@ cd biketowork
   - aha! how about [DateTimeField](https://docs.djangoproject.com/en/1.6/ref/models/fields/#datetimefield)?
   - add a start time and an end time.
 
-```
+```python
 class Ride(models.Model):
     distance = models.DecimalField(max_digits=5, decimal_places=2)
     start_time = models.DateTimeField()
@@ -96,7 +96,7 @@ class Ride(models.Model):
 - need to add the model to rides/admin.py
 - open up rides/admin.py and add:
 
-```
+```python
 from .models import Ride
 admin.site.register(Ride)
 ```
@@ -106,7 +106,7 @@ admin.site.register(Ride)
 - note how when you list the new rides it simply shows "ride object."
 - the first thing we can do is return a usable string of text by overriding the __unicode__ method on the Ride model.
 
-```
+```python
     def __str__(self):
         return "{minutes}m, {distance} miles".format(
                 minutes=round((self.start_time - self.end_time).seconds/60, 2),
@@ -115,7 +115,7 @@ admin.site.register(Ride)
 
 - that now shows a little more information on the admin. but what about a table where we can see start, stop, and mileage and sort it?
 
-```
+```python
 class RideAdmin(admin.ModelAdmin):
     list_display = ('start_time', 'end_time', 'distance')
 
@@ -134,7 +134,7 @@ admin.site.register(Ride, RideAdmin)
     - but you don't have to use a template. you just have to return some kind of response.
 - let's go ahead and create a really simple view
 
-```
+```python
 from django.shortcuts import HttpResponse
 
 def recent(request):
@@ -147,7 +147,7 @@ def recent(request):
         - a common pattern is to set up most urls in the app and include them in the project
     - let's edit the project urls.py file for now
 
-```
+```python
 from django.conf.urls import patterns, include, url
 
 from django.contrib import admin
@@ -165,10 +165,12 @@ urlpatterns = patterns('',
 )
 ```
 
-- pull from the DB, show it on the page.
 - let's talk about querysets.
+    - this is how we pull from the DB via the ORM, show it on the page.
+        - what is an ORM?
+        - basically creates an object-oriented model of the database row
+        - the django model object also acts as a manager for querying the database for multiple objects
     - we said we wanted the five most recent rides. we have a ride object, how do we get many objects and iterate over them?
-    - a model is a representation of an object
     - but the model manager is accessed via Model.objects, which allows us to talk to the DB.
     - For example, ```ride = Ride.objects.get(pk=1)``` would get the Ride object with a primary key of 1 and store it in the variable ```ride```
     - You can also grab multiple objects: ```rides = Ride.objects.filter(distance=1)```
@@ -176,6 +178,33 @@ urlpatterns = patterns('',
     - you can sort the objects you search for: ```Ride.objects.order_by('start_time')```
     - you can also drop into raw SQL, or grab child and parent objects.
     - you can limit the results (with a SQL ```LIMIT```) by using python list syntax: ```Ride.objects.all()[:5])```
+    - first, we need to import the Ride model into the view
+    - Now, inside the view method, we create a variable for the rides
+- before we pass the variable to a template, we need to create it!
+    - before we create it, we have to tell our application where to look for templates.
+    - this is defined in [settings.TEMPLATE_DIRS](https://docs.djangoproject.com/en/dev/ref/settings/#template-dirs)
+        - TEMPLATE_DIRS is simply a list of locations for django to look for templates.
+        - in biketowork/settings.py...
+
+```python
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'templates')
+)
+```
+
+- Now we can create the template file in BASE_DIR/templates/
+    - in this case, templates/rides/recent.html
+    - we'll create a basic HTML file for now.
+- Then we can update the view and use [```render_to_response```](https://docs.djangoproject.com/en/dev/topics/http/shortcuts/#django.shortcuts.render_to_response)
+
+```python
+def recent(request):
+    rides = Ride.objects.order_by('-start_time')[:5]
+    return render_to_response('rides/recent.html', {
+        'rides': rides,
+    })
+```
+
 
 #### Rough draft area...
 
