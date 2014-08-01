@@ -165,6 +165,7 @@ urlpatterns = patterns('',
 )
 ```
 
+- look at that! it's just a regex! pretty simple, right?
 - let's talk about querysets.
     - this is how we pull from the DB via the ORM, show it on the page.
         - what is an ORM?
@@ -225,17 +226,18 @@ def recent(request):
   {% endfor %}
 ```
 
+- hooray! it's quite simple, but it does show our rides.
+- there is another way to accomplish this, using class-based views.
+    - not going to really cover that as I'm not really a big fan of them.
+    - however, for simple lists and updates, they can be convenient so you should familiarize yourself with them.
+- how would we accommodate static files (JS and CSS)?
+
+
 
 #### Rough draft area...
 
-- show most recent five in templates, show how to render a template with variables
-    - start with just render httpresponse
-    - then actually populate variables in template, use render_to_response shortcut
-    - show how to include logic, variables, and what filters are.
-    - briefly talk about class-based views
-
-- set up urls.py to show this new page at the root
-    - it's just regex!
+- if we want to make it look nice, where do we put our JS and CSS?
+- how would we serve that up in a production environment? ([wsgi](http://legacy.python.org/dev/peps/pep-3333/#original-rationale-and-goals-from-pep-333))
 - ok, let's add a user account and authentication (how easy was that?)
     - maybe use an add-in for social account login?
     - demonstrate how you don't always need to recreate the wheel
