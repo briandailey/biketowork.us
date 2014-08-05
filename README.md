@@ -231,6 +231,17 @@ def recent(request):
     - not going to really cover that as I'm not really a big fan of them.
     - however, for simple lists and updates, they can be convenient so you should familiarize yourself with them.
 - how would we accommodate static files (JS and CSS)?
+    - during development, we can use django.contrib.staticfiles to serve static content.
+    - to do this, we need to make sure:
+        - it's addded to settings.py,
+        - we put our files somewhere Django can find them (or tell Django explicitly)
+        - preferably, use the static template tag: ```{% load staticfiles %}```
+            - this format allows you to include additional libraries in your templates.
+- so in 2034670 we added the necessary settings and template tags to include the bootstap CSS file
+- now let's talk about the pattern of using a base html file and including small snippets inside it
+    - this is a php common to php and ruby frameworks
+    - keeps you from having to repeat the same html code (e.g., menus, css, js) in multiple places.
+    - in 08869a2 we create a base template and inherit it from the recent ride template using ```{% extends %}``` and ```{% block %}```
 
 
 
