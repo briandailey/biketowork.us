@@ -1,19 +1,8 @@
-{% load staticfiles %}
-<!doctype html>
-
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-
-  <title>BikeToWork.us</title>
-  <meta name="description" content="BikeToWork shows recent rides.">
-  <link rel="stylesheet" type="text/css"
-                  href="{% static "bootstrap/css/bootstrap.min.css" %}">
-</head>
-
-<body>
+{% extends "base.html" %}
+{% block content %}
   {% for ride in rides %}
-  {{ ride }}<br/>
+    <div class="well">
+        {{ ride }}<br/>
+    </div>
   {% endfor %}
-</body>
-</html>
+{% endblock %}
