@@ -12,4 +12,8 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', recent),
+
+    (r'^accounts/login/$', 'django.contrib.auth.views.login'),
+
+    url('', include('social.apps.django_app.urls', namespace='social')),
 )

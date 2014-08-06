@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form class="form" method="post" action="{% url 'django.contrib.auth.views.login' %}">
+{% csrf_token %}
+<div class="row">
+    <div class="col-lg-4">
+        <div class="well" style="margin: 0px auto;">
+            <fieldset>
+                <legend>Please log in...</legend>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">{{ form.username.label }}</label>
+                    <div class="col-lg-5">{{ form.username }}</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">{{ form.password.label }}</label>
+                    <div class="col-lg-5">{{ form.password }}</div>
+                </div>
+                <div class="form-group pull-right">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+</form>
+{% endblock %}
