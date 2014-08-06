@@ -238,16 +238,26 @@ def recent(request):
         - preferably, use the static template tag: ```{% load staticfiles %}```
             - this format allows you to include additional libraries in your templates.
 - so in 2034670 we added the necessary settings and template tags to include the bootstap CSS file
-- now let's talk about the pattern of using a base html file and including small snippets inside it
+- let's talk about the pattern of using a base html file and including small snippets inside it
     - this is a php common to php and ruby frameworks
     - keeps you from having to repeat the same html code (e.g., menus, css, js) in multiple places.
     - in 08869a2 we create a base template and inherit it from the recent ride template using ```{% extends %}``` and ```{% block %}```
+    - you can have multiple blocks in a page.
+        - common pattern is to have one for the header, footer, etc. anywhere you want to override the default.
+- all we have for now is a single page listing rides.
+- new requirement: I'd like to have the ability to have my friends add rides, too.
+- for this, we'll need to:
+    - accommodate the creation of user accounts
+    - set up pages for users to manage their rides
+    - create a leaderboard for rides in the past week
+    - we'll use the new [django migrations](https://docs.djangoproject.com/en/dev/topics/migrations/) to modify our rides table to accommodate users.
+- we can use the [stock authentication views](https://docs.djangoproject.com/en/1.7/topics/auth/default/#module-django.contrib.auth.views) initially
+    - the login template by default is ```registration/login.html```
 
 
 
 #### Rough draft area...
 
-- if we want to make it look nice, where do we put our JS and CSS?
 - how would we serve that up in a production environment? ([wsgi](http://legacy.python.org/dev/peps/pep-3333/#original-rationale-and-goals-from-pep-333))
 - ok, let's add a user account and authentication (how easy was that?)
     - maybe use an add-in for social account login?
