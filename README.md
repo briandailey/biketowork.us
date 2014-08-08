@@ -253,6 +253,31 @@ def recent(request):
     - we'll use the new [django migrations](https://docs.djangoproject.com/en/dev/topics/migrations/) to modify our rides table to accommodate users.
 - we can use the [stock authentication views](https://docs.djangoproject.com/en/1.7/topics/auth/default/#module-django.contrib.auth.views) initially
     - the login template by default is ```registration/login.html```
+    - we could create the form with a simple {{ form }} tag
+    - however, the django default is to create an html table.
+    - we could break each form field into fields, but that is laborious at best.
+    - let's not reinvent the wheel - let's install django-bootstrap-form
+    - this is one of the nice things about django - somebody has probably already done what you need
+
+```
+pip install django-bootstrap-form
+```
+
+    - add the app to the settings, load the template tag, and now you can use {{ form|bootstrap }} (40d2540)
+    - we need to update settings to redirect the user to the proper place on login, rather than the default /account/profile (d49244d)
+    - let's add the user name to the base template (24b0367)
+    - note that the user name doesn't show up in the "recent" page.
+    - this is because the user variable isn't actually passed to the template
+    - what if we wanted the user variable to be passed to every single template by default?
+    - in that case, we would create a [context processor](https://docs.djangoproject.com/en/dev/ref/templates/api/#writing-your-own-context-processors)
+        - simple a method that accepts an HttpRequest object and returns a dictionary that will be added to the template context.
+    - you would add that context processor to the list of TEMPLATE_CONTEXT_PROCESSORS in your settings
+    - however, in this case, our work is already done.
+        - TEMPLATE_CONTEXT_PROCESSORS already contains [the auth context processor](https://docs.djangoproject.com/en/dev/ref/templates/api/#django-contrib-auth-context-processors-auth) which contains the user and perms variables.
+        - if we look at the [render_to_response](https://docs.djangoproject.com/en/dev/topics/http/shortcuts/#render-to-response) shortcut method, we can pass a context instance along with our variables.
+        - or we can just the [render](https://docs.djangoproject.com/en/dev/topics/http/shortcuts/#django.shortcuts.render) method, which passes it automatically
+            - just need to add the request object to the parameters (68d20ec)
+    - reload, and there it is!
 
 
 
