@@ -18,6 +18,11 @@
 
   <body>
     <div class="container">
+        {% if user.is_authenticated %}
+            <div class="pull-right">
+                    <small>Hi {{ user.username }}!</small>
+            </div>
+        {% endif %}
         <div class="page-header">
           <h1 id="navbar">Bike To Work</h1>
         </div>
