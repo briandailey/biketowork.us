@@ -8,5 +8,3 @@ def recent(request):
     return render_to_response('rides/recent.html', {
         'rides': rides,
     })
-
-    return HttpResponse('leeeroy jenkins!')
