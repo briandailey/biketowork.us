@@ -5,6 +5,6 @@ from .models import Ride
 
 def recent(request):
     rides = Ride.objects.order_by('-start_time')[:5]
-    return render_to_response('rides/recent.html', {
-        'rides': rides,
+    return render(request, 'rides/recent.html', {
+            'rides': rides,
     })
