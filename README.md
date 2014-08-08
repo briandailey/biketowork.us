@@ -258,11 +258,7 @@ def recent(request):
     - we could break each form field into fields, but that is laborious at best.
     - let's not reinvent the wheel - let's install django-bootstrap-form
     - this is one of the nice things about django - somebody has probably already done what you need
-
-```
-pip install django-bootstrap-form
-```
-
+        - just ```pip install django-bootstrap-form```
     - add the app to the settings, load the template tag, and now you can use {{ form|bootstrap }} (40d2540)
     - we need to update settings to redirect the user to the proper place on login, rather than the default /account/profile (d49244d)
     - let's add the user name to the base template (24b0367)
