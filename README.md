@@ -274,7 +274,45 @@ def recent(request):
         - or we can just the [render](https://docs.djangoproject.com/en/dev/topics/http/shortcuts/#django.shortcuts.render) method, which passes it automatically
             - just need to add the request object to the parameters (68d20ec)
     - reload, and there it is!
+- so far, however, our rides are not tied to any particular user.
+    - we need to set up a foreign relationship to the Django User model.
+        - django.contrib.auth.models.User
+    - in this case, we want a many-to-one relationship (a user can have many rides)
+    - that is a [ForeignKey](https://docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.ForeignKey) relationship
+    - there are other kinds of relationships, too.
+        - [ManyToManyField](https://docs.djangoproject.com/en/dev/ref/models/fields/#manytomanyfield)
+        - [OneToOneField](https://docs.djangoproject.com/en/dev/ref/models/fields/#onetoonefield)
 
+```python
+class Ride(models.Model):
+    user = models.ForeignKey(User)
+```
+
+- Now, however, we need to reflect this change in the database.
+    - Prior to Django 1.7, we would use ```./manage.py syncdb``` to re-create the table
+        - this, however, was terribly inconvenient if you wanted to simply alter an existing table.
+    - Django 1.7 now includes database migrations.
+    - we can create a new migration by using ```./manage.py makemigrations```
+
+```
+./manage.py makemigrations
+You are trying to add a non-nullable field 'user' to ride without a default;
+we can't do that (the database needs something to populate existing rows).
+Please select a fix:
+ 1) Provide a one-off default now (will be set on all existing rows)
+ 2) Quit, and let me add a default in models.py
+Select an option: 1
+Please enter the default value now, as valid Python
+The datetime module is available, so you can do e.g. datetime.date.today()
+>>> 1
+Migrations for 'rides':
+  0002_ride_user.py:
+    - Add field user to ride
+```
+
+- now we just apply the migration:: ```./manage.py migrate```
+- if we look at the Ride table, we can now see that the user column has been added.
+- it even has a foreign key relationships built in (if your databse supports that)
 
 
 #### Rough draft area...
