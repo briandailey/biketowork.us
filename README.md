@@ -313,6 +313,7 @@ Migrations for 'rides':
 - now we just apply the migration:: ```./manage.py migrate```
 - if we look at the Ride table, we can now see that the user column has been added.
 - it even has a foreign key relationships built in (if your databse supports that)
+- we can add the username to the ride information (ee9e4cf)
 
 
 #### Rough draft area...
