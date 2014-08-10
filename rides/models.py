@@ -12,8 +12,9 @@ class Ride(models.Model):
         return round((self.start_time - self.end_time).seconds/60)
 
     def __str__(self):
-        return "{minutes}m, {distance} miles".format(
+        return "{minutes}m, {distance} miles by {user}".format(
                 minutes=self.minutes,
-                distance=self.distance)
+                distance=self.distance,
+                user=self.user)
 
 
