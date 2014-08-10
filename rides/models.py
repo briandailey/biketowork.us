@@ -1,6 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Ride(models.Model):
+    user = models.ForeignKey(User)
     distance = models.DecimalField(max_digits=5, decimal_places=2)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
