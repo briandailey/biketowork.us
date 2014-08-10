@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^$', recent),
 
     (r'^accounts/login/$', 'django.contrib.auth.views.login'),
+    (r'^accounts/logout/$', 'django.contrib.auth.views.logout'),
 
     url('', include('social.apps.django_app.urls', namespace='social')),
 )
