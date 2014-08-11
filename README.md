@@ -1,3 +1,5 @@
+### What Is Django?
+
 - What is Django?
   - A web framework
   - What is a web framework?
@@ -20,14 +22,18 @@
   - Mac & Linux already have Python
   - Windows, use Portable Python 2.7
   - Use pip (why?)
-  - Use virtualenv (why?)
+  - Use virtualenv and virtualenvwrapper (why?)
   - Set up a requirements.txt (why?)
-- The Almighty Request & Response
-  - A step through the lifecycle
+
+### Project Requirements
+
 - Let's build a project!
   - An app that I can log my bike rides to work.
-  - I want to record total ride time, distance, and show average speed.
-- Explain project vs. app
+  - For now, I simply want to record total ride time and distance.
+
+### Starting a Django Project
+
+- A project contains multiple applications.
 
 ```
 mkvirtualenv biketowork
@@ -38,15 +44,18 @@ cd biketowork
 ```
 
 - oh look, a webserver that already works!
-- ok, time to create ourselves a "ride". where's our models file?
-- models belong to apps. we have a project, but no apps yet.
+
+# Creating an App
+
+- Ok, time to create ourselves a "ride". where's our models file?
+- Models belong to apps. we have a project, but no apps yet.
 
 ```
 ./manage.py startapp rides
 ```
 
-- why did we use a pluralized word here? no particular reason, but it is more or less conventional practice.
-- now we have something that looks like this:
+- Why did we use a pluralized word here? no particular reason, but it is more or less conventional practice.
+- Now we have something that looks like this:
 
 ```
 .
@@ -313,7 +322,29 @@ Migrations for 'rides':
 - now we just apply the migration:: ```./manage.py migrate```
 - if we look at the Ride table, we can now see that the user column has been added.
 - it even has a foreign key relationships built in (if your databse supports that)
-- we can add the username to the ride information (ee9e4cf)
+- we can add the username to the ride information (__str__ method) (ee9e4cf)
+
+
+- Django also has a built-in framework for building tests.
+- Let's add a test that confirms that the username is included in the Ride __str__ output.
+    - we create a class in ```rides/test.py``` that inherits ```django.test.TestCase```
+    - django TestCase is a subclass of unittest.TestCase, but it also comes with
+        - automatic loading of fixtures
+        - wraps each test in a database transaction
+        - crease a TestClient instance (for testing request/response)
+        - includes Django-specific assertions for testing for things like redirection and form errors
+- we could create a Ride fixture, but in this test let's just create a setUp method that creates a ride (615dbf2)
+- We'll create a method that confirms that the username is present in the output (db0d753)
+- Now let's create another test, but instead of re-creating the object.create, let's refactor to use fixtures.
+- You can use the ```./manage.py dumpdata``` command to dump specific models or app data for testing
+
+```
+./manage.py dumpdata rides --indent=4 > rides/fixtures/rides.json
+./manage.py dumpdata auth --indent=4 > rides/fixtures/users.json
+```
+
+- Refactor to indicate which fixtures to load for the test. (4f4c74a)
+- Now we can add another test for the recent view with similar data
 
 
 #### Rough draft area...
