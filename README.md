@@ -345,6 +345,10 @@ Migrations for 'rides':
 
 - Refactor to indicate which fixtures to load for the test. (4f4c74a)
 - Now we can add another test for the recent view with similar data
+    - we can use the [test client](https://docs.djangoproject.com/en/dev/topics/testing/tools/#the-test-client) to simulate web requests
+    - test that the recent page has a 'login' link (976cda4)
+    - test that if a user is logged in, the logout link is available (b1317e8).
+
 
 
 #### Rough draft area...
