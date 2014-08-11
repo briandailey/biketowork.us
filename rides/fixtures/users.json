@@ -1,0 +1,38 @@
+[
+{
+    "pk": 1,
+    "fields": {
+        "date_joined": "2014-07-23T01:46:34.664Z",
+        "last_login": "2014-08-11T01:32:04.538Z",
+        "email": "brian@stratasan.com",
+        "last_name": "Dailey",
+        "password": "pbkdf2_sha256$12000$P3XXPCmkCQb3$EFB6kzKnGuupqp1PBFKXV3bg1zpJbafe7Gj23a6DIl8=",
+        "is_staff": true,
+        "is_superuser": true,
+        "username": "brian",
+        "user_permissions": [],
+        "groups": [],
+        "first_name": "Brian",
+        "is_active": true
+    },
+    "model": "auth.user"
+},
+{
+    "pk": 2,
+    "fields": {
+        "date_joined": "2014-08-10T02:52:14.356Z",
+        "last_login": "2014-08-10T02:53:09.705Z",
+        "email": "",
+        "last_name": "",
+        "password": "pbkdf2_sha256$12000$I6VILTaTLIYX$M+OIoo9XRYypy8re+QIJF+Djyz4A0Z2eClU5YzCYt+0=",
+        "is_staff": false,
+        "is_superuser": false,
+        "username": "test",
+        "user_permissions": [],
+        "groups": [],
+        "first_name": "",
+        "is_active": true
+    },
+    "model": "auth.user"
+}
+]

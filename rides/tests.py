@@ -8,18 +8,8 @@ from rides.models import Ride
 
 
 class TestRide(TestCase):
-    def setUp(self):
-        self.user = User.objects.create(
-            username='test',
-            password='test',
-            email='test@dailytechnology.net',
-        )
-        self.ride = Ride.objects.create(
-            user=self.user,
-            distance=5.5,
-            start_time=timezone.now(),
-            end_time=timezone.now() + timedelta(hours=1.5)
-        )
+    fixtures = ['users', 'rides']
 
     def test_user_in_ride_description(self):
-        self.assertTrue(self.user.username in str(self.ride))
+        ride = Ride.objects.all()[0]
+        self.assertTrue(ride.user.username in str(ride))

@@ -1,0 +1,22 @@
+[
+{
+    "model": "rides.ride",
+    "fields": {
+        "distance": "10.1",
+        "user": 1,
+        "start_time": "2014-07-22T20:50:24Z",
+        "end_time": "2014-07-22T20:00:25Z"
+    },
+    "pk": 1
+},
+{
+    "model": "rides.ride",
+    "fields": {
+        "distance": "5.5",
+        "user": 1,
+        "start_time": "2014-07-24T20:00:30Z",
+        "end_time": "2014-07-24T20:49:30Z"
+    },
+    "pk": 2
+}
+]
