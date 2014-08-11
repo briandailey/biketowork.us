@@ -15,7 +15,14 @@ class TestRide(TestCase):
         self.assertTrue(ride.user.username in str(ride))
 
 class TestRecentRides(TestCase):
+    fixtures = ['users', 'rides']
+
     def test_recent_rides_has_login_link(self):
         response = self.client.get('/')
         self.assertContains(response, 'login')
 
+    def test_recent_rides_has_logout_link(self):
+        self.client.login(username='test', password='test')
+        response = self.client.get('/')
+        self.assertContains(response, 'logout')
+        self.assertNotContains(response, 'login')
