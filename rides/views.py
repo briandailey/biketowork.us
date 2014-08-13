@@ -11,7 +11,13 @@ def recent(request):
     })
 
 def new(request):
-    form = RideForm()
+    if request.GET:
+        form = RideForm()
+    else:   # request.POST:
+        form = RideForm(request.POST)
+        if form.is_valid():
+            form.save()
+    # messages? # validation? etc
     return render(request, 'rides/new.html', {
             'form': form,
     })

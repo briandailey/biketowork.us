@@ -372,10 +372,16 @@ Migrations for 'rides':
 ### User Forms
 
 - For now, the only way to create a ride is to do it via the Admin page.
-- However, only admin (User.is_staff) can access that, and we must grant permissions.
-- What if we want to have a user add a new ride via a form?
+    - If we log in as the test user, we can't create a ride!
+    - only User.is_staff is allowed to access the /admin/ area.
+    - We need a way for our friends to add new rides.
 - We could write the form from scratch, but of course we don't have to...
 - We can use [Django forms](https://docs.djangoproject.com/en/dev/topics/forms/)!
+- For this, let's use a Django [ModelForm](https://docs.djangoproject.com/en/dev/topics/forms/modelforms/).
+- Add our view method, our template, and our URL route.
+    - Note we used the bootstrap template filter again.
+    - For now, the form is pretty basic. Date input is not terribly user friendly.
+    - Doesn't actually do anything when submitting yet.
 
 
 ### Production Deployment Patterns
@@ -396,7 +402,6 @@ pip freeze > requirements.txt
 ```
 pip install -r requirements.txt
 ```
-
 
 #### Rough draft area...
 
