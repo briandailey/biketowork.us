@@ -422,6 +422,11 @@ form = RideForm(request.POST, instance=Ride(user=request.user))
 - the Django [messages framework](https://docs.djangoproject.com/en/dev/ref/contrib/messages/) should help us out here!
 - We need to add the message to the view, and then make sure we display messages in the base template (feda13c)
 
+### Bells & Whistles
+
+- We can do a few more things to make it a little nicer.
+    - Show a link to the 'new' page (17689e5)
+    - Use django.contrib.humanize to put a nice timestamp on recent rides (781976c)
 
 ### Production Deployment Patterns
 
