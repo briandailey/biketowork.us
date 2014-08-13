@@ -1,8 +1,12 @@
 {% extends "base.html" %}
+{% load humanize %}
 {% block content %}
   {% for ride in rides %}
     <div class="well">
-        {{ ride }}<br/>
+      <div class="pull-right">
+        <small>{{ ride.start_time|naturaltime }}</small>
+      </div>
+      {{ ride }}<br/>
     </div>
   {% endfor %}
 {% endblock %}
