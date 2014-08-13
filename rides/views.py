@@ -11,9 +11,9 @@ def recent(request):
     })
 
 def new(request):
-    if request.GET:
+    if request.method == 'GET':
         form = RideForm()
-    else:   # request.POST:
+    else:   # request.method == 'POST':
         form = RideForm(request.POST)
         if form.is_valid():
             form.save()
