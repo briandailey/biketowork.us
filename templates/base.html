@@ -26,6 +26,11 @@
             {% endif %}
         </div>
         <div class="page-header">
+          {% if user.is_authenticated %}
+            <div class="pull-right btn-group">
+              <a href="{% url 'new_ride' %}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> New Ride</a>
+            </div>
+          {% endif %}
           <h1 id="navbar">Bike To Work</h1>
         </div>
         {% if messages %}
