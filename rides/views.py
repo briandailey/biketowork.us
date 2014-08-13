@@ -16,7 +16,7 @@ def new(request):
     if request.method == 'GET':
         form = RideForm()
     else:   # request.method == 'POST':
-        form = RideForm(request.POST)
+        form = RideForm(request.POST, instance=Ride(user=request.user))
         if form.is_valid():
             form.save()
     # messages? # validation? etc
