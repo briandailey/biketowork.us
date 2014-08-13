@@ -45,7 +45,7 @@ cd biketowork
 
 - oh look, a webserver that already works!
 
-# Creating an App
+### Creating an App
 
 - Ok, time to create ourselves a "ride". where's our models file?
 - Models belong to apps. we have a project, but no apps yet.
@@ -72,6 +72,8 @@ cd biketowork
     ├── tests.
     └── views.py
 ```
+
+### Creating a Model
 
 - great! now we have a models file! let's create a ride model.
 - we said we wanted to create a ride with distance and time.
@@ -100,6 +102,8 @@ class Ride(models.Model):
 ./manage.py syncdb
 ./manage.py runserver
 ```
+
+### Admin Management
 
 - still nothing on the web page, or at /admin/
 - need to add the model to rides/admin.py
@@ -136,6 +140,11 @@ admin.site.register(Ride, RideAdmin)
 - The admin is extensible, theme-able, and easy to set up. However, you don't really want to use it for your entire site.
 - What if we wanted the landing page to show us the five most recent rides?
     - To the view layer!
+
+
+### Creating Views
+
+
 - views are the glue between the models and the templates
     - simply put, a view accepts a request and returns a response.
     - you can use a template to make things easier for you
@@ -190,6 +199,9 @@ urlpatterns = patterns('',
     - you can limit the results (with a SQL ```LIMIT```) by using python list syntax: ```Ride.objects.all()[:5])```
     - first, we need to import the Ride model into the view
     - Now, inside the view method, we create a variable for the rides
+
+### Creating Templates
+
 - before we pass the variable to a template, we need to create it!
     - before we create it, we have to tell our application where to look for templates.
     - this is defined in [settings.TEMPLATE_DIRS](https://docs.djangoproject.com/en/dev/ref/settings/#template-dirs)
@@ -254,6 +266,9 @@ def recent(request):
     - you can have multiple blocks in a page.
         - common pattern is to have one for the header, footer, etc. anywhere you want to override the default.
 - all we have for now is a single page listing rides.
+
+### Adding User Authentication
+
 - new requirement: I'd like to have the ability to have my friends add rides, too.
 - for this, we'll need to:
     - accommodate the creation of user accounts
@@ -283,6 +298,9 @@ def recent(request):
         - or we can just the [render](https://docs.djangoproject.com/en/dev/topics/http/shortcuts/#django.shortcuts.render) method, which passes it automatically
             - just need to add the request object to the parameters (68d20ec)
     - reload, and there it is!
+
+### Creating Migrations
+
 - so far, however, our rides are not tied to any particular user.
     - we need to set up a foreign relationship to the Django User model.
         - django.contrib.auth.models.User
@@ -325,6 +343,8 @@ Migrations for 'rides':
 - we can add the username to the ride information (__str__ method) (ee9e4cf)
 
 
+### Testing Your Application
+
 - Django also has a built-in framework for building tests.
 - Let's add a test that confirms that the username is included in the Ride __str__ output.
     - we create a class in ```rides/test.py``` that inherits ```django.test.TestCase```
@@ -349,6 +369,33 @@ Migrations for 'rides':
     - test that the recent page has a 'login' link (976cda4)
     - test that if a user is logged in, the logout link is available (b1317e8).
 
+### User Forms
+
+- For now, the only way to create a ride is to do it via the Admin page.
+- However, only admin (User.is_staff) can access that, and we must grant permissions.
+- What if we want to have a user add a new ride via a form?
+- We could write the form from scratch, but of course we don't have to...
+- We can use [Django forms](https://docs.djangoproject.com/en/dev/topics/forms/)!
+
+
+### Production Deployment Patterns
+
+- Now that we have an app, how would we host it?
+    - There are PaaS companies like Heroku and Gondor that make it very easy.
+    - However, assuming we have our own server...
+- Common pattern is nginx + gunicorn.
+- nginx serves up static files, plus a proxy off to gunicorn running on a Unix web socket.
+- we need to communicate dependencies. pip and virtualenv make this quite easy.
+
+```
+pip freeze > requirements.txt
+```
+
+- this tells us what packages we need to run the application. we can install them in other environments with:
+
+```
+pip install -r requirements.txt
+```
 
 
 #### Rough draft area...

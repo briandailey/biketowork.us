@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+import dj_database_url
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -96,9 +97,15 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+STATIC_ROOT = 'staticfiles'
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
 
 LOGIN_REDIRECT_URL = '/'
+
+if os.environ.get('DATABASE_URL'):
+    # we must be on heroku. override with production settings.
+    DATABASES['default'] =  dj_database_url.config()
+    ALLOWED_HOSTS = ['*']
