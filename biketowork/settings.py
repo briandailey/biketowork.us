@@ -104,8 +104,6 @@ TEMPLATE_DIRS = (
 
 LOGIN_REDIRECT_URL = '/'
 
-DATABASES['default'] =  dj_database_url.config()
-
 if os.environ.get('DATABASE_URL'):
     # we must be on heroku. override with production settings.
     DATABASES['default'] =  dj_database_url.config()
