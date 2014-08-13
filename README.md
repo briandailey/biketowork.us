@@ -427,6 +427,7 @@ form = RideForm(request.POST, instance=Ride(user=request.user))
 - We can do a few more things to make it a little nicer.
     - Show a link to the 'new' page (17689e5)
     - Use django.contrib.humanize to put a nice timestamp on recent rides (781976c)
+    - Link to python-social-auth Google login (dd8987f).
 
 ### Production Deployment Patterns
 
