@@ -1,4 +1,5 @@
 from django.shortcuts import render, render_to_response, HttpResponse
+from django.contrib.auth.decorators import login_required
 
 # because the models are in the same module, we can use a relative import here.
 from .models import Ride
@@ -10,6 +11,7 @@ def recent(request):
             'rides': rides,
     })
 
+@login_required
 def new(request):
     if request.method == 'GET':
         form = RideForm()
