@@ -1,13 +1,12 @@
-https://www.djangoproject.com/download/1.7c2/tarball/
+-e git://github.com/django/django.git@0014d5b3055ea7a01c1268bd0bcac50ff31c50f8#egg=Django-stable/1.7.x
 dj-database-url==0.3.0
 dj-static==0.0.6
 django-bootstrap-form==3.1
 gunicorn==19.1.0
 oauthlib==0.6.3
-python-openid==2.2.5
 python-social-auth==0.1.26
+python3-openid==3.0.4
 requests==2.3.0
-requests-oauthlib==0.4.1
+requests-oauthlib==0.3.1
 six==1.7.3
 static3==0.5.1
-wsgiref==0.1.2
