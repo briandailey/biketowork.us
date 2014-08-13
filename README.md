@@ -377,11 +377,50 @@ Migrations for 'rides':
     - We need a way for our friends to add new rides.
 - We could write the form from scratch, but of course we don't have to...
 - We can use [Django forms](https://docs.djangoproject.com/en/dev/topics/forms/)!
-- For this, let's use a Django [ModelForm](https://docs.djangoproject.com/en/dev/topics/forms/modelforms/).
+- For this simple form, let's use a Django [ModelForm](https://docs.djangoproject.com/en/dev/topics/forms/modelforms/) (16ae607).
 - Add our view method, our template, and our URL route.
     - Note we used the bootstrap template filter again.
     - For now, the form is pretty basic. Date input is not terribly user friendly.
-    - Doesn't actually do anything when submitting yet.
+
+```python
+from django.forms import ModelForm
+
+from rides.models import Ride
+
+class RideForm(ModelForm):
+    class Meta:
+        model = Ride
+        fields = ['start_time', 'end_time', 'distance']
+```
+
+- and in view.py:
+
+```python
+def new(request):
+    if request.method == 'GET':
+        form = RideForm()
+    else:   # request.method == 'POST':
+        form = RideForm(request.POST)
+        if form.is_valid():
+            form.save()
+    return render(request, 'rides/new.html', {
+            'form': form,
+    })
+```
+
+- If you save this, it will complain that user_id is null.
+- We need to set the user based on the session
+    - which means that we should also require that the user log in!
+    - for this we can use the @login_required decorator. (6c66db2)
+- We can use the ModelForm instance keyword argument to provide the default user (65125a0).
+
+```python
+form = RideForm(request.POST, instance=Ride(user=request.user))
+```
+
+- Great! But now when we save it, it just shows the form with the same data.
+- the Django [messages framework](https://docs.djangoproject.com/en/dev/ref/contrib/messages/) should help us out here!
+- We need to add the message to the view, and then make sure we display messages in the base template (feda13c)
 
 
 ### Production Deployment Patterns
