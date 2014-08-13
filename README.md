@@ -369,7 +369,33 @@ Migrations for 'rides':
     - test that the recent page has a 'login' link (976cda4)
     - test that if a user is logged in, the logout link is available (b1317e8).
 
+### User Forms
 
+- For now, the only way to create a ride is to do it via the Admin page.
+- However, only admin (User.is_staff) can access that, and we must grant permissions.
+- What if we want to have a user add a new ride via a form?
+- We could write the form from scratch, but of course we don't have to...
+- We can use [Django forms](https://docs.djangoproject.com/en/dev/topics/forms/)!
+
+
+### Production Deployment Patterns
+
+- Now that we have an app, how would we host it?
+    - There are PaaS companies like Heroku and Gondor that make it very easy.
+    - However, assuming we have our own server...
+- Common pattern is nginx + gunicorn.
+- nginx serves up static files, plus a proxy off to gunicorn running on a Unix web socket.
+- we need to communicate dependencies. pip and virtualenv make this quite easy.
+
+```
+pip freeze > requirements.txt
+```
+
+- this tells us what packages we need to run the application. we can install them in other environments with:
+
+```
+pip install -r requirements.txt
+```
 
 
 #### Rough draft area...
