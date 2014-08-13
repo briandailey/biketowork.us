@@ -1,5 +1,6 @@
-from django.shortcuts import render, render_to_response, HttpResponse
+from django.shortcuts import render, render_to_response, HttpResponse, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 # because the models are in the same module, we can use a relative import here.
 from .models import Ride
@@ -19,6 +20,8 @@ def new(request):
         form = RideForm(request.POST, instance=Ride(user=request.user))
         if form.is_valid():
             form.save()
+            messages.add_message(request, messages.SUCCESS, 'Ride recorded!')
+            return redirect('recent_rides')
     # messages? # validation? etc
     return render(request, 'rides/new.html', {
             'form': form,
