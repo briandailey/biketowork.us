@@ -448,21 +448,6 @@ pip freeze > requirements.txt
 pip install -r requirements.txt
 ```
 
-#### Rough draft area...
-
-- how would we serve that up in a production environment? ([wsgi](http://legacy.python.org/dev/peps/pep-3333/#original-rationale-and-goals-from-pep-333))
-- ok, let's add a user account and authentication (how easy was that?)
-    - maybe use an add-in for social account login?
-    - demonstrate how you don't always need to recreate the wheel
-    - add add-in to requirements.txt (what is requirements.txt?)
-- create a base template that others extend
-- demonstrate how to set up a relationship between objects
-- now let's say we want to show per user, and change it
-- demonstrate how we put variables in a url pattern (to change user)
-- forms so non-admin can create a ride
-- create a test
-
-
-
 Resources:
-http://www.slideshare.net/mpirnat/web-development-with-python-and-django
+- http://www.slideshare.net/mpirnat/web-development-with-python-and-django
+- Two Scoops of Django (Book)
